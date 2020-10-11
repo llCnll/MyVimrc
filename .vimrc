@@ -22,6 +22,7 @@
 "    -> vimgrep searching and cope displaying
 "    -> Spell checking
 "    -> Misc
+"    -> MySelf
 "    -> Helper functions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -68,7 +69,8 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 " 移动光标的时候, 头/尾 稳定保留7行
-set so=7
+" set so=7
+set scrolloff=7
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en' 
@@ -79,6 +81,12 @@ source $VIMRUNTIME/menu.vim
 " Turn on the Wild menu
 " 在命令模式下可以用tab模糊匹配
 set wildmenu
+" full 缺省值 用第一个完整的匹配补全，然后下一个匹配，依此类推
+" longest,full, 用最长的子串补全，然后是每个完整的匹配
+" list:full 列出所有的匹配并用每个完整的匹配补全
+" list,full 列出所有的匹配而不补全，然后是每个完整的匹配
+" longest,list, 用最长的子串补全，然后列出所有的可能性
+set wildmode=full
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -98,7 +106,7 @@ set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 " 允许在有未保存的修改时切换缓冲区, 此时的修改由vim负责保存
-set hid
+set hidden
 
 " Configure backspace so it acts as it should act
 " 解决插入模式下退格键失效的问题
@@ -106,7 +114,7 @@ set hid
 " start : 要想删除此次插入前的输入，需设置这个
 " indent : 如果用了:set indent,:set ai 等自动缩进，想用退格键将字段缩进的删掉，必须设置这个选项。否则不响应
 set backspace=eol,start,indent
-" 允许backspace和光标键跨越行边界允许backspace和光标键跨越行边界
+" 允许 <Left> <Right> h l 到达行首/行尾的时候可以移动到上一行/下一行
 set whichwrap+=<,>,h,l
 
 " Ignore case when searching
@@ -123,11 +131,11 @@ set hlsearch
 
 " Makes search act like search in modern browsers
 " 输入搜索模式时, 每输入一个字符, 就自动跳到第一个匹配的结果.(逐字高亮)
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
 " 使用宏的时候不显示过程, 直接显示结果
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 " magic就是设置哪些元字符要加反斜杠哪些不用加的
@@ -147,21 +155,22 @@ set mat=2
 
 " No annoying sound on errors
 " 关闭错误信息响铃
-set noerrorbells
+" set noerrorbells
 " 关闭出错时候发出视觉提醒, 通常是屏幕闪烁
-set novisualbell
+" set novisualbell
 " 置空错误铃声的中断代码
-set t_vb=
-set tm=500
+set visualbell t_vb=
+" set tm=500
+set timeoutlen=500
 
 " Properly disable sound on errors on MacVim
 if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
+    autocmd GUIEnter * set visualbell t_vb=
 endif
 
 
 " Add a bit extra margin to the left
-" 设置折叠区域的宽度
+" 设置折叠区域的宽度, 最大值12
 set foldcolumn=1
 
 
@@ -170,7 +179,7 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 " 开启语法高亮
-syntax enable 
+syntax enable
 
 " Enable 256 colors palette in Gnome Terminal
 " 启用256色
@@ -192,7 +201,7 @@ set background=dark
 if has("gui_running")
     " 不显示工具栏
     set guioptions-=T
-    " 不显示编辑栏
+    " 使用非GUI标签页行
     set guioptions-=e
     set t_Co=256
     set guitablabel=%M\ %t
@@ -203,7 +212,8 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 " fileformats用于处理文件格式, 告诉vim将unix文件格式作为第一选择, 将dos作为第二选择
-set ffs=unix,dos,mac
+" set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,8 +222,9 @@ set ffs=unix,dos,mac
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 " 不创建备份文件. 默认情况下, 文件保存时, 会额外创建一个备份文件, 它的文件名是在原文件名的末尾, 再添加一个波浪号(~).
 set nobackup
-" 进入写入时候的文件备份, nowritebackup
-set nowb
+" 进入写入时候的文件备份
+" set nowb
+set nowritebackup
 " 不创建交换文件. 交换文件主要用于系统崩溃时恢复文件. 文件的开头是 . 结尾是 .swp
 set noswapfile
 
@@ -236,14 +247,18 @@ set tabstop=4
 
 " Linebreak on 500 characters
 " 不在单词中间折行, 只有在遇到指定的符号才发生折行(空格, 逗号, 其他标点符号)
-set lbr
+" set lbr
+set linebreak
 " 设置光标超过500的时候折行
-set tw=500
+" set tw=500
+set textwidth=500
 
 " 启用自动对齐, 把上一行的对齐格式应用到下一行
-set ai "Auto indent
+" set ai "Auto indent
+set autoindent
 " 依据上面的格式, 智能选择对齐方式
-set si "Smart indent
+" set si "Smart indent
+set smartindent
 " 自动折行
 set wrap "Wrap lines
 
@@ -306,7 +321,9 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 " Specify the behavior when switching between buffers 
 try
   set switchbuf=useopen,usetab,newtab
-  set stal=2
+  " set stal=2
+  " 何时显示带有标签页的行, 0-永远不会, 1-至少有两个标签页的时候才会, 2-永远会
+  set showtabline=2
 catch
 endtry
 
@@ -387,6 +404,24 @@ map <leader>x :e ~/buffer.md<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+" 显示行号, 和相对行号
+set number
+set relativenumber
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => MySelf
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 插入/普通模式下光标
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+
+" 如果行尾有多余的空白字符, 则显示出来
+set list
+set listchars=tab:▸\ ,trail:▫
+
+" 突出当前行
+set cursorline
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -422,7 +457,7 @@ endfunction
 
 function! CmdLine(str)
     call feedkeys(":" . a:str)
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -440,20 +475,3 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
-
-" 显示行号, 和相对行号
-set number
-set relativenumber
-
-" 插入/普通模式下光标
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-
-" 如果行尾有多余的空白字符, 则显示出来
-set list
-set listchars=tab:▸\ ,trail:▫
-
-" 突出当前行
-set cursorline
-
