@@ -281,41 +281,54 @@ map <space> /
 map <C-space> ?
 
 " Disable highlight when <leader><cr> is pressed
+" 取消高亮
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
+" 分屏的相关操作
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Close the current buffer
+" 关闭当前缓冲区
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 
 " Close all the buffers
+" 关闭所有缓冲区
 map <leader>ba :bufdo bd<cr>
 
+" 下一个缓冲区
 map <leader>l :bnext<cr>
+" 前一个缓冲区
 map <leader>h :bprevious<cr>
 
 " Useful mappings for managing tabs
+" tab的相关操作
+" 创建新的tab
 map <leader>tn :tabnew<cr>
+" 只保留当前tab
 map <leader>to :tabonly<cr>
+" 关闭当前tab
 map <leader>tc :tabclose<cr>
+" 移动当前tab到n的位置
 map <leader>tm :tabmove 
+" 打开第n个tab
 map <leader>t<leader> :tabnext 
 
 " Let 'tl' toggle between this and the last accessed tab
+" 当前tab与最后一个tab进行来回切换
 let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
+" 进入到当前缓冲的文件的目录
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers 
@@ -380,6 +393,7 @@ endif
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
+" 开启/关闭 拼写检查
 map <leader>ss :setlocal spell!<cr>
 
 " Shortcuts using <leader>
@@ -402,6 +416,7 @@ map <leader>q :e ~/buffer<cr>
 map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
+" 粘贴模式开关
 map <leader>pp :setlocal paste!<cr>
 
 " 显示行号, 和相对行号
