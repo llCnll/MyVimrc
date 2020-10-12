@@ -73,7 +73,7 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 set scrolloff=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -422,6 +422,7 @@ map <leader>pp :setlocal paste!<cr>
 " 显示行号, 和相对行号
 set number
 set relativenumber
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => MySelf
