@@ -1,14 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
-"       Amir Salihefendic — @amix3k
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
 " Sections:
 "    -> General
 "    -> VIM user interface
@@ -24,6 +14,7 @@
 "    -> Misc
 "    -> MySelf
 "    -> Helper functions
+"    -> Plugin
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -168,7 +159,6 @@ if has("gui_macvim")
     autocmd GUIEnter * set visualbell t_vb=
 endif
 
-
 " Add a bit extra margin to the left
 " 设置折叠区域的宽度, 最大值12
 set foldcolumn=1
@@ -293,16 +283,16 @@ map <C-l> <C-W>l
 
 " Close the current buffer
 " 关闭当前缓冲区
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+map <leader>bc :Bclose<cr>:tabclose<cr>gT
 
 " Close all the buffers
 " 关闭所有缓冲区
 map <leader>ba :bufdo bd<cr>
 
 " 下一个缓冲区
-map <leader>l :bnext<cr>
+map <leader>bn :bnext<cr>
 " 前一个缓冲区
-map <leader>h :bprevious<cr>
+map <leader>bp :bprevious<cr>
 
 " Useful mappings for managing tabs
 " tab的相关操作
@@ -439,6 +429,7 @@ set listchars=tab:▸\ ,trail:▫
 " 突出当前行
 set cursorline
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -491,3 +482,60 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdtree'
+Plug 'xuyuanp/nerdtree-git-plugin'
+" Plug 'connorholyday/vim-snazzy'
+" Plug 'valloric/youcompleteme'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+call plug#end()
+
+" ===========
+" == NERDTree
+" ===========
+" 打开文件自动打开NERDTree
+" autocmd vimenter * NERDTree
+" 唯一打开的窗口是NERDTree时, 自动退出
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" 菜单栏位置
+let g:NERDTreeWinPos = "left"
+" 1-显示隐藏文件 0-不现实隐藏文件
+let NERDTreeShowHidden=1
+" 设置宽度
+let NERDTreeWinSize=35
+" 显示行号
+let NERDTreeShowLineNumbers=1
+" unkonwn
+let NERDTreeAutoCenter=1
+
+" 打开/关闭目录
+map <leader>dt :NERDTreeToggle<cr>
+" 打开指定的书签
+map <leader>db :NERDTreeFromBookmark<Space>
+" 打开当前文目录
+map <leader>df :NERDTreeFind<cr>
+
+" ==============
+" == NERDTree-git
+" ==============
+" 自定义图标
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
