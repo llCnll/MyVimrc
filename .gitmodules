@@ -4,3 +4,6 @@
 [submodule ".vim/plugged/nerdtree"]
 	path = .vim/plugged/nerdtree
 	url = git@github.com:preservim/nerdtree.git
+[submodule ".vim/plugged/coc.nvim"]
+	path = .vim/plugged/coc.nvim
+	url = git@github.com:neoclide/coc.nvim.git
