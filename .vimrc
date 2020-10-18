@@ -139,10 +139,10 @@ set magic
 
 " Show matching brackets when text indicator is over them
 " 光标遇到圆括号, 方括号, 大括号时, 自动高亮对应的另一个圆括号, 方括号和大括号.
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 " 设置显示配对括号的时间, 单位0.1秒
-set mat=2
+set matchtime=1
 
 " No annoying sound on errors
 " 关闭错误信息响铃
@@ -429,6 +429,60 @@ set listchars=tab:▸\ ,trail:▫
 " 突出当前行
 set cursorline
 
+" 插入模式下返回开头/结尾
+imap <C-a> <Esc>I
+imap <C-e> <Esc>A
+
+""新建.c,.h,.sh,.java文件，自动插入文件头
+"autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()"
+"""定义函数SetTitle，自动插入文件头
+"func SetTitle()
+"    "如果文件类型为.sh文件
+"    if &filetype == 'sh'
+"        call setline(1,"\#!/bin/bash")
+"        call append(line("."), "")
+"    elseif &filetype == 'python'
+"        call setline(1,"#!/usr/bin/env python")
+"        call append(line("."),"# coding=utf-8")
+"        call append(line(".")+1, "")
+"
+"    elseif &filetype == 'ruby'
+"        call setline(1,"#!/usr/bin/env ruby")
+"        call append(line("."),"# encoding: utf-8")
+"        call append(line(".")+1, "")
+"
+"        "    elseif &filetype == 'mkd'
+"        "        call setline(1,"<head><meta charset=\"UTF-8\"></head>")
+"    else
+"        call setline(1, "/*************************************************************************")
+"        call append(line("."), "	> File Name: ".expand("%"))
+"        call append(line(".")+1, "	> Author: ")
+"        call append(line(".")+2, "	> Mail: ")
+"        call append(line(".")+3, "	> Created Time: ".strftime("%c"))
+"        call append(line(".")+4, " ************************************************************************/")
+"        call append(line(".")+5, "")
+"    endif
+"    if expand("%:e") == 'cpp'
+"        call append(line(".")+6, "#include<iostream>")
+"        call append(line(".")+7, "using namespace std;")
+"        call append(line(".")+8, "")
+"    endif
+"    if &filetype == 'c'
+"        call append(line(".")+6, "#include<stdio.h>")
+"        call append(line(".")+7, "")
+"    endif
+"    if expand("%:e") == 'h'
+"        call append(line(".")+6, "#ifndef _".toupper(expand("%:r"))."_H")
+"        call append(line(".")+7, "#define _".toupper(expand("%:r"))."_H")
+"        call append(line(".")+8, "#endif")
+"    endif
+"    if &filetype == 'java'
+"        call append(line(".")+6,"public class ".expand("%:r"))
+"        call append(line(".")+7,"")
+"    endif
+"endfunc
+""新建文件后，自动定位到文件末尾
+"autocmd BufNewFile * normal G
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -489,12 +543,18 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-" 填写要加载的插件 不要的插件扔外面
-let plugNames = [
-            \ 'scrooloose/nerdtree',
-            \ 'xuyuanp/nerdtree-git-plugin',
-            \]
-            "\ 'neoclide/coc.nvim, {"branch": "release"}'
+" 填写要加载的插件
+" let plugNames = [
+"             \ 'scrooloose/nerdtree',
+"             \ 'xuyuanp/nerdtree-git-plugin',
+"             \]
+let plugNames=[]
+" 树形目录
+call add(plugNames, 'scrooloose/nerdtree')
+" 树形目录配套的git样式
+call add(plugNames, 'xuyuanp/nerdtree-git-plugin')
+" coc
+" call add(plugNames, 'neoclide/coc.nvim, {"branch": "release"}')
 
 call plug#begin('~/.vim/plugged')
 
