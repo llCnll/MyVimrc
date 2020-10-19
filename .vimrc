@@ -555,15 +555,13 @@ call add(plugNames, 'scrooloose/nerdtree')
 call add(plugNames, 'xuyuanp/nerdtree-git-plugin')
 " coc
 " call add(plugNames, 'neoclide/coc.nvim, {"branch": "release"}')
+call add(plugNames, 'ctrlpvim/ctrlp.vim')
 
 call plug#begin('~/.vim/plugged')
 
 for name in plugNames
     Plug name
 endfor
-" Plug 'connorholyday/vim-snazzy'
-" Plug 'valloric/youcompleteme'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
