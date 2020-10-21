@@ -555,7 +555,10 @@ call add(plugNames, 'scrooloose/nerdtree')
 call add(plugNames, 'xuyuanp/nerdtree-git-plugin')
 " coc
 " call add(plugNames, 'neoclide/coc.nvim, {"branch": "release"}')
+" 文件搜索工具
 call add(plugNames, 'ctrlpvim/ctrlp.vim')
+" 环绕字符编辑 https://zhuanlan.zhihu.com/p/158604935
+call add(plugNames, 'tpope/vim-surround')
 
 call plug#begin('~/.vim/plugged')
 

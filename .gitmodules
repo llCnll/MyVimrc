@@ -10,3 +10,6 @@
 [submodule ".vim/plugged/ctrlp.vim"]
 	path = .vim/plugged/ctrlp.vim
 	url = git@github.com:ctrlpvim/ctrlp.vim.git
+[submodule ".vim/plugged/vim-surround"]
+	path = .vim/plugged/vim-surround
+	url = git@github.com:tpope/vim-surround.git
