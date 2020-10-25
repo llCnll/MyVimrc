@@ -559,6 +559,8 @@ call add(plugNames, 'xuyuanp/nerdtree-git-plugin')
 call add(plugNames, 'ctrlpvim/ctrlp.vim')
 " 环绕字符编辑 https://zhuanlan.zhihu.com/p/158604935
 call add(plugNames, 'tpope/vim-surround')
+" md粘贴图片
+call add(plugNames, 'ferrine/md-img-paste.vim')
 
 call plug#begin('~/.vim/plugged')
 

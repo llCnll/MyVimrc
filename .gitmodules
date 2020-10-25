@@ -13,3 +13,6 @@
 [submodule ".vim/plugged/vim-surround"]
 	path = .vim/plugged/vim-surround
 	url = git@github.com:tpope/vim-surround.git
+[submodule ".vim/plugged/md-img-paste.vim"]
+	path = .vim/plugged/md-img-paste.vim
+	url = git@github.com:ferrine/md-img-paste.vim.git
