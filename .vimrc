@@ -418,9 +418,12 @@ set relativenumber
 " => MySelf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 插入/普通模式下光标
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+" let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+" let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 
 " 如果行尾有多余的空白字符, 则显示出来
 set list
