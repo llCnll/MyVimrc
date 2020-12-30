@@ -16,3 +16,9 @@
 [submodule ".vim/plugged/md-img-paste.vim"]
 	path = .vim/plugged/md-img-paste.vim
 	url = git@github.com:ferrine/md-img-paste.vim.git
+[submodule ".vim/plugged/vim-markdown"]
+	path = .vim/plugged/vim-markdown
+	url = git@github.com:plasticboy/vim-markdown.git
+[submodule ".vim/plugged/tabular"]
+	path = .vim/plugged/tabular
+	url = git@github.com:godlygeek/tabular.git
