@@ -22,3 +22,6 @@
 [submodule ".vim/plugged/tabular"]
 	path = .vim/plugged/tabular
 	url = git@github.com:godlygeek/tabular.git
+[submodule ".vim/plugged/copilot.vim"]
+	path = .vim/plugged/copilot.vim
+	url = git@github.com:dromara/ChatGPT.git

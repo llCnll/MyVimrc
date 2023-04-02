@@ -567,6 +567,8 @@ call add(plugNames, 'ferrine/md-img-paste.vim')
 " markdown 语法高亮
 call add(plugNames, 'godlygeek/tabular')
 call add(plugNames, 'plasticboy/vim-markdown')
+" github copilot
+call add (plugNames, 'github/copilot.vim')
 
 call plug#begin('~/.vim/plugged')
 
